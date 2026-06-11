@@ -1,0 +1,71 @@
+.movie-card{
+    width: 270px;
+    height: 360px;
+    position: relative;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+.movie-card:hover{
+    scale: 1.02;
+}
+.movie-card h5{
+    font-size: 25px;
+    margin-left: 17px;
+}
+.movie-card img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.over-layer{
+    border-radius: 10px;
+    position: relative;
+}
+.movie-details{
+    position: absolute;
+    bottom: 0px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+}
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 70px;
+}
+.links{
+    display: flex;
+}
+.links a{
+    padding: 10px;
+    margin: 0 10px;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+.links a:hover{
+    background-color: white;
+    color: black;
+}
+.search-input{
+    outline: none;
+    border: none;
+    width: 300px;
+    padding: 5px;
+    border-radius: 10px;
+}
+.search-input:focus{
+  box-shadow: 0 0 15px white;
+}
+.pagination button{
+    background-color:black ;
+    color: white;
+}
+.pagination .next , .pagination .prev{
+    background-color: rgb(56, 55, 55);
+}
+.pagination {
+    position: relative;
+    
+}
