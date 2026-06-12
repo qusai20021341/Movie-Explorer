@@ -6,13 +6,14 @@ import { GrPrevious } from "react-icons/gr";
 
 
 
-const AllMovies = ({searchText}) => {
+const AllMovies = ({searchText,favoriteMoviesList,setFavoriteMoviesList}) => {
 
   const [selection, setSelection]=useState("popular")
   const [moviesList, setMoviesList]=useState([])
   const [pagination, setPagination]=useState(1)
   const [pageNumber, setPageNumber]=useState(1)
   const [load, setLoad]=useState(false)
+
 
   useEffect(()=>{
 
@@ -55,18 +56,18 @@ const AllMovies = ({searchText}) => {
       <h5 style={{textTransform:"capitalize"}} className="display-5 py-4 text-white">{selection}:</h5>
       <div className="movies d-flex flex-wrap gap-3 pb-2 ">
         {
-          searchText.length ==0? moviesList.map((movie)=><MovieCard key={movie.id} movie={movie} />):
-          filteredMoiveList.map((movie)=><MovieCard key={movie.id} movie={movie} />)
+          searchText.length ==0? moviesList.map((movie)=><MovieCard key={movie.id} movie={movie} favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} />):
+          filteredMoiveList.map((movie)=><MovieCard key={movie.id} movie={movie} favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} />)
         }
       </div>
        <div className="pagination p-4 d-flex justify-content-center">
         <nav aria-label="Page navigation ">
-          <ul class="pagination">
-            <li class="page-item"><button className="page-link prev"  onClick={()=>pageNumber>1? setPageNumber(pageNumber>3?prev=>prev-3:null):setPageNumber(1)} ><GrPrevious /></button></li>
-            <li class="page-item"><button className="page-link" onClick={()=>setPagination(pageNumber)} >{pageNumber}</button></li>
-            <li class="page-item"><button className="page-link" onClick={()=>setPagination(pageNumber +1)} >{pageNumber + 1}</button></li>
-            <li class="page-item"><button className="page-link" onClick={()=>setPagination(pageNumber+2)} >{pageNumber + 2}</button></li>
-            <li class="page-item"><button className="page-link next"  onClick={()=>setPageNumber(prev=>prev+3)}  ><GrFormNext /></button></li>
+          <ul className="pagination">
+            <li className="page-item"><button className="page-link prev"  onClick={()=>pageNumber>1? setPageNumber(pageNumber>3?prev=>prev-3:null):setPageNumber(1)} ><GrPrevious /></button></li>
+            <li className="page-item"><button className="page-link" onClick={()=>setPagination(pageNumber)} >{pageNumber}</button></li>
+            <li className="page-item"><button className="page-link" onClick={()=>setPagination(pageNumber +1)} >{pageNumber + 1}</button></li>
+            <li className="page-item"><button className="page-link" onClick={()=>setPagination(pageNumber+2)} >{pageNumber + 2}</button></li>
+            <li className="page-item"><button className="page-link next"  onClick={()=>setPageNumber(prev=>prev+3)}  ><GrFormNext /></button></li>
           </ul>
         </nav>
       </div>

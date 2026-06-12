@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
-const Home = ({ searchText }) => {
+const Home = ({ searchText,favoriteMoviesList,setFavoriteMoviesList }) => {
   const [trendingMoviesList, setTrendingMoviesList] = useState([]);
   const [load, setLoad]=useState(false)
 
@@ -28,10 +28,10 @@ const Home = ({ searchText }) => {
         <div className=" d-flex flex-wrap gap-3 p-1 ">
             {searchText.trim().length == 0
             ? trendingMoviesList.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
+                <MovieCard key={movie.id} movie={movie} favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} />
                 ))
             : filteredMovies.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
+                <MovieCard key={movie.id} movie={movie} favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} />
                 ))}
         </div>
        }   

@@ -1,6 +1,23 @@
-import { MdFavoriteBorder } from "react-icons/md";
+import { useEffect } from "react";
+import { BiColor } from "react-icons/bi";
+import { MdOutlineFavorite } from "react-icons/md";
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, favoriteMoviesList,setFavoriteMoviesList }) => {
+
+    
+
+    const toggleAddToFavorites=(movieId)=>{
+        if(favoriteMoviesList.includes(movieId))
+        {
+            setFavoriteMoviesList(favoriteMoviesList.filter(id=>id != movieId));
+        }else{
+            setFavoriteMoviesList([...favoriteMoviesList,movieId])
+        }
+    }
+
+    const toggleFavIcon=(movieId)=>{
+        return favoriteMoviesList.includes(movieId)
+    }
   if (!movie) return null;
 
   return (
@@ -19,11 +36,13 @@ const MovieCard = ({ movie }) => {
             }}
             
         >
-            <div>
-                <MdFavoriteBorder  />
+            <div className="add-favorite" >
+                <div className="favorite-icon" onClick={()=>toggleAddToFavorites(movie.id)}>
+                    <MdOutlineFavorite style={{color:toggleFavIcon(movie.id)?"red":""}} />
+                </div>
             </div>
 
-            <div className="movie-details  ">
+            <div className="movie-details ">
                 <h5  >{movie.title}</h5>
                 <div className="movie-info">
                     <div className="d-flex justify-content-around">
