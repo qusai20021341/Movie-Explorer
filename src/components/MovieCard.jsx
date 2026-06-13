@@ -25,7 +25,7 @@ const MovieCard = ({ movie, favoriteMoviesList,setFavoriteMoviesList }) => {
          <img src={movie.poster_path?`https://image.tmdb.org/t/p/w500${movie.poster_path}`:'https://image.tmdb.org/t/p/w500'} 
       className="card-img-top" alt={movie.title}
        />
-       <div className="over-layer "
+       <div className="over-layer "  
             style={{
             position: "absolute",
             bottom: 0,

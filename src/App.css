@@ -67,9 +67,8 @@
 .pagination .next , .pagination .prev{
     background-color: rgb(56, 55, 55);
 }
-.pagination {
-    position: relative;
-    
+.pagination-wrapper {
+  position: relative;
 }
 .favorite-icon{
     width: fit-content;
