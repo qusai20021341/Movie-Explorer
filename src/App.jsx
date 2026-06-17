@@ -3,11 +3,12 @@ import "./App.css";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import MovieCard from "./components/MovieCard";
-import { BrowserRouter,Routes,Route } from "react-router-dom";
+import { BrowserRouter,Routes,Route, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import AllMovies from "./pages/AllMovies";
 import Favorites from "./pages/Favorites";
 import Header from "./components/Header";
+import  MovieDetails from "./pages/MovieDetails"
 
 
 
@@ -23,6 +24,7 @@ function App() {
         console.log(favoriteMoviesList)
     },[favoriteMoviesList])
 
+  
   return(
 
     <BrowserRouter>
@@ -31,6 +33,7 @@ function App() {
       <Route path="/" element={<Home favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} searchText={searchText} />} />
       <Route path="/all-movies" element={<AllMovies favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} searchText={searchText} />} />
       <Route path="/favorites" element={<Favorites searchText={searchText} favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} />} />
+      <Route path="/movie/:id" element={<MovieDetails />} />
 
 
     </Routes>

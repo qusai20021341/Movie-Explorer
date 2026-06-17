@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { BiColor } from "react-icons/bi";
 import { MdOutlineFavorite } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
-const MovieCard = ({ movie, favoriteMoviesList,setFavoriteMoviesList }) => {
+const MovieCard = ({ movie, favoriteMoviesList,setFavoriteMoviesList}) => {
 
-    
+    const navigate=useNavigate();
 
     const toggleAddToFavorites=(movieId)=>{
         if(favoriteMoviesList.includes(movieId))
@@ -21,11 +22,18 @@ const MovieCard = ({ movie, favoriteMoviesList,setFavoriteMoviesList }) => {
   if (!movie) return null;
 
   return (
-    <div className="movie-card text-white ">
+    <div className="movie-wrapper">
+     <div className="add-favorite" >
+                <div className="favorite-icon" onClick={()=>toggleAddToFavorites(movie.id)}>
+                    <MdOutlineFavorite style={{color:toggleFavIcon(movie.id)?"red":""}} />
+                </div>
+            </div>
+
+    <div className="movie-card text-white " onClick={()=>navigate(`/movie/${movie.id}`)} style={{position:"relative"}} >
          <img src={movie.poster_path?`https://image.tmdb.org/t/p/w500${movie.poster_path}`:'https://image.tmdb.org/t/p/w500'} 
-      className="card-img-top" alt={movie.title}
+      className="card-img-top" alt={movie.title} 
        />
-       <div className="over-layer "  
+       <div className="over-layer "   
             style={{
             position: "absolute",
             bottom: 0,
@@ -36,13 +44,8 @@ const MovieCard = ({ movie, favoriteMoviesList,setFavoriteMoviesList }) => {
             }}
             
         >
-            <div className="add-favorite" >
-                <div className="favorite-icon" onClick={()=>toggleAddToFavorites(movie.id)}>
-                    <MdOutlineFavorite style={{color:toggleFavIcon(movie.id)?"red":""}} />
-                </div>
-            </div>
-
-            <div className="movie-details ">
+           
+            <div className="movie-details  " >
                 <h5  >{movie.title}</h5>
                 <div className="movie-info">
                     <div className="d-flex justify-content-around">
@@ -73,6 +76,7 @@ const MovieCard = ({ movie, favoriteMoviesList,setFavoriteMoviesList }) => {
            
         </div>
 
+    </div>
     </div>
   );
 };

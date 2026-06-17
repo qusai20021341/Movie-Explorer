@@ -12,6 +12,7 @@ const AllMovies = ({searchText,favoriteMoviesList,setFavoriteMoviesList}) => {
   const [moviesList, setMoviesList]=useState([])
   const [pagination, setPagination]=useState(1)
   const [pageNumber, setPageNumber]=useState(1)
+  const [searchedMovies, setSearchMoives]=useState([])
   const [load, setLoad]=useState(false)
 
 
@@ -42,12 +43,30 @@ const AllMovies = ({searchText,favoriteMoviesList,setFavoriteMoviesList}) => {
     getMovies()
 
   },[selection,pagination])
+  useEffect( ()=>{
+    const getSearchedMovie=async ()=>{
+
+      try{ 
+        setLoad(true)
+        const resutl= await axios.get(  `https://api.themoviedb.org/3/search/movie?api_key=165bfd050a291be69f9ccec37b38792d&query=${searchText}`)
+        setSearchMoives(resutl.data.results)
+      }catch(err){
+        console.log(err)
+      }finally{
+        setLoad(false)
+      }
+    }
+    getSearchedMovie()
+
+
+  },[searchText])
   
-  const filteredMoiveList=moviesList.filter((movie)=> movie.title.toLowerCase().includes(searchText.trim().toLowerCase()) )
-  return (load?<p>Loading...</p>:
+  
+  return (
     <div className="px-5 bg-dark" style={{ minHeight: "100vh",position:"relative" }}>
-      
-      <div className="buttons d-flex justify-content-center gap-2 py-4">
+      {load?<p>Loading...</p>:
+      <div>
+           <div className="buttons d-flex justify-content-center gap-2 py-4">
         <button className={`btn ${selection ==="popular"?"btn-secondary":"btn-outline-secondary"}`} onClick={()=>setSelection("popular")}>Popular</button>
         <button className={`btn ${selection ==="topRated"?"btn-secondary":"btn-outline-secondary"}`} onClick={()=>setSelection("topRated")}>Top Rated</button>
         <button className={`btn ${selection ==="upComing"?"btn-secondary":"btn-outline-secondary"}`}onClick={()=>setSelection("upComing")}>Upcoming</button>
@@ -57,10 +76,10 @@ const AllMovies = ({searchText,favoriteMoviesList,setFavoriteMoviesList}) => {
       <div className="movies d-flex flex-wrap gap-3 pb-2 ">
         {
           searchText.length ==0? moviesList.map((movie)=><MovieCard key={movie.id} movie={movie} favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} />):
-          filteredMoiveList.map((movie)=><MovieCard key={movie.id} movie={movie} favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} />)
+          searchedMovies.map((movie)=><MovieCard key={movie.id} movie={movie} favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} />)
         }
       </div>
-      {moviesList.length> 0 && filteredMoiveList.length>0 &&(<div className="pagination-wrapper p-4 d-flex justify-content-center ">
+      {moviesList.length> 0  &&(<div className="pagination-wrapper p-4 d-flex justify-content-center ">
         <nav aria-label="Page navigation ">
           <ul className="pagination">
             <li className="page-item"><button className="page-link prev"  onClick={()=>pageNumber>1? setPageNumber(pageNumber>3?prev=>prev-3:null):setPageNumber(1)} ><GrPrevious /></button></li>
@@ -72,6 +91,9 @@ const AllMovies = ({searchText,favoriteMoviesList,setFavoriteMoviesList}) => {
         </nav>
       </div>)
       }
+     
+      </div>
+    }
      
     </div>
   )
