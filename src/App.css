@@ -134,6 +134,15 @@
   font-weight: 600;
   color: #fff;
 }
+.movie-overview {
+    text-align: justify;
+    line-height: 1.75;
+    font-size: clamp(0.9rem, 1.6vw, 1.05rem);
+    max-width: 650px;
+    margin: 0 auto 1.5rem;
+    color: rgba(255, 255, 255, 0.85);
+    hyphens: auto;
+}
 .movies {
     padding-left: 40px;
     padding-right: 40px;

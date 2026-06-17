@@ -38,7 +38,7 @@ const MovieDetails = () => {
             <div className="movie-detials container text-white w-50 d-flex flex-column justify-content-around">
               <div className="up">
                 <h1 className="text-center display-3 fw-bold py-3">{movie.title}</h1>
-                <p className="text-center text-light mb-4">{movie.overview}</p>
+                <p className=" movie-overview text-center text-light mb-4">{movie.overview}</p>
               </div>
               <div className="bottom pb-5">
                 <div className="d-flex justify-content-center gap-4 flex-wrap mb-4">
