@@ -1,6 +1,6 @@
 .movie-card{
-    width: 270px;
-    height: 360px;
+    width: 300px;
+    height: 400px;
     position: relative;
     border-radius: 10px;
     transition: 0.3s;
@@ -22,7 +22,6 @@
 .over-layer{
     border-radius: 10px;
     position: relative;
-    
 }
 .movie-details{
     position: absolute;
@@ -78,8 +77,6 @@
     border-radius: 50%;
     transition: 0.3s;
     box-shadow: 0px 0px 10px black;
-    
-   
 }
 .favorite-icon:hover{
     font-size: 22px;
@@ -89,10 +86,9 @@
     display: flex;
     justify-content: end;
 }
-
 .movie-container {
   display: flex;
-  height: calc(100vh - 112px) ;
+  height: calc(100vh - 112px);
   background-color: black;
   position: relative;
 }
@@ -100,9 +96,7 @@
     width: 100%;
     object-fit: cover;
 }
-
 .image-overlay {
-  height: calc(100% - 112px) ;
   position: absolute;
   top: 0;
   left: 0;
@@ -112,21 +106,18 @@
   rgba(0, 0, 0, 0.801),
  rgba(0, 0, 0, .9));
 }
-
 .info-box {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
 }
-
 .info-label {
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: rgba(255, 255, 255, 0.45);
 }
-
 .info-value {
   font-size: 1rem;
   font-weight: 600;
@@ -134,15 +125,17 @@
 }
 .movie-wrapper {
     position: relative;
+    width: 300px;
 }
-
+.movie-wrapper .movie-card {
+    width: 100%;
+}
 .add-favorite {
     position: absolute;
     top: 5px;
     right: 5px;
     z-index: 100;
 }
-
 .favorite-icon {
     cursor: pointer;
     color: white;
@@ -150,4 +143,90 @@
 .logo{
     width: 100px;
     border-radius: 50%;
+}
+
+@media (max-width: 1024px) {
+    .navbar-brand {
+        display: none;
+    }
+
+    .header {
+        justify-content: center;
+        gap: 20px;
+        padding: 15px 30px;
+    }
+
+    .search-input {
+        width: 220px;
+    }
+
+    .movie-wrapper {
+        width: 230px;
+    }
+
+    .movie-wrapper .movie-card {
+        height: 310px;
+    }
+
+    .movie-card h5 {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px 20px;
+        gap: 10px;
+    }
+
+    .links {
+        order: 1;
+    }
+
+    .search-box {
+        order: 2;
+    }
+
+    .search-input {
+        width: 260px;
+    }
+
+    .movie-wrapper {
+        width: 185px;
+    }
+
+    .movie-wrapper .movie-card {
+        height: 260px;
+    }
+
+    .movie-card h5 {
+        font-size: 13px;
+        margin-left: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .movie-wrapper {
+        width: 160px;
+    }
+
+    .movie-wrapper .movie-card {
+        height: 225px;
+    }
+
+    .movie-card h5 {
+        font-size: 12px;
+    }
+
+    .links a {
+        padding: 7px;
+        margin: 0 5px;
+        font-size: 14px;
+    }
+
+    .search-input {
+        width: 220px;
+    }
 }

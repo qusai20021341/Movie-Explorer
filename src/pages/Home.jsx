@@ -21,11 +21,13 @@ const Home = ({ searchText,favoriteMoviesList,setFavoriteMoviesList }) => {
   );
 
   return (
+    
+
     <div className="px-5 bg-dark" style={{ minHeight: "100vh" }}>
       <h5 className="display-5 py-4 text-white"> Trending:</h5>
       {
         load?<h3 className="text-white">Loading...</h3>:
-        <div className=" d-flex flex-wrap gap-3 p-1 ">
+<div className="movies d-flex flex-wrap gap-3 pb-2 justify-content-center">
             {searchText.trim().length == 0
             ? trendingMoviesList.map((movie) => (
                 <MovieCard key={movie.id} movie={movie} favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} />

@@ -63,7 +63,7 @@ const AllMovies = ({searchText,favoriteMoviesList,setFavoriteMoviesList}) => {
   
   
   return (
-    <div className="px-5 bg-dark" style={{ minHeight: "100vh",position:"relative" }}>
+    <div className="bg-dark" style={{ minHeight: "100vh",position:"relative" }}>
       {load?<p>Loading...</p>:
       <div>
            <div className="buttons d-flex justify-content-center gap-2 py-4">
@@ -72,8 +72,8 @@ const AllMovies = ({searchText,favoriteMoviesList,setFavoriteMoviesList}) => {
         <button className={`btn ${selection ==="upComing"?"btn-secondary":"btn-outline-secondary"}`}onClick={()=>setSelection("upComing")}>Upcoming</button>
       </div>
       
-      <h5 style={{textTransform:"capitalize"}} className="display-5 py-4 text-white">{selection}:</h5>
-      <div className="movies d-flex flex-wrap gap-3 pb-2 ">
+      <h5 style={{textTransform:"capitalize"}} className="display-5 py-4 px-5 text-white">{selection}:</h5>
+      <div className="movies d-flex flex-wrap gap-3 pb-2 justify-content-center ">
         {
           searchText.length ==0? moviesList.map((movie)=><MovieCard key={movie.id} movie={movie} favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} />):
           searchedMovies.map((movie)=><MovieCard key={movie.id} movie={movie} favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} />)

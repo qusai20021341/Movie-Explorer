@@ -47,7 +47,7 @@ const Favorites = ({
       ) : load ? (
         <p className="text-white text-center">Loading...</p>
       ) : (
-        <div className="movies d-flex flex-wrap gap-3 pb-2">
+        <div className="movies d-flex flex-wrap gap-3 pb-2 justify-content-center">
           {(searchText.length === 0 ? movies : filteredMovies).map((movie) => (
             <MovieCard
               key={movie.id}
