@@ -242,9 +242,7 @@
     }
 }
 
-/* Consolidated small-phone tier (old 480px + 576px merged so there's
-   no conflicting override between them — this one rule now reliably
-   controls every phone-sized screen and guarantees 2 cards per row) */
+
 @media (max-width: 576px) {
     .movie-wrapper {
         width: calc(50% - 8px);
@@ -291,8 +289,7 @@
     }
 }
 
-/* Extra-small phones (narrow Android widths) — still 2 columns,
-   just a touch tighter so nothing feels cramped */
+
 @media (max-width: 380px) {
     .movie-wrapper {
         width: calc(50% - 8px);
