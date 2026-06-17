@@ -256,3 +256,27 @@
         font-size: 1.8rem !important;
     }
 }
+
+@media (max-width: 576px) {
+    .movie-wrapper {
+        width: calc(50% - 8px);
+    }
+
+    .movie-wrapper .movie-card {
+        height: 220px;
+    }
+
+    .movie-card h5 {
+        font-size: 12px;
+        margin-left: 6px;
+    }
+
+    .movie-card .small {
+        font-size: 9px;
+    }
+
+    .px-5 {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+}
