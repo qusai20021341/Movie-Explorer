@@ -10,14 +10,23 @@
     cursor: pointer;
 }
 .movie-card h5{
-    font-size: 25px;
+    font-size: clamp(0.85rem, 4vw, 1.5625rem);
     margin-left: 17px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .movie-card img{
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
+}
+.movie-info p.small{
+    font-size: clamp(0.55rem, 2vw, 0.85rem);
+}
+.movie-info p:not(.small){
+    font-size: clamp(0.7rem, 2.4vw, 1rem);
 }
 .over-layer{
     border-radius: 10px;
@@ -57,17 +66,17 @@
     border-radius: 10px;
 }
 .search-input:focus{
-    box-shadow: 0 0 15px white;
+  box-shadow: 0 0 15px white;
 }
 .pagination button{
-    background-color: black;
+    background-color:black ;
     color: white;
 }
-.pagination .next, .pagination .prev{
+.pagination .next , .pagination .prev{
     background-color: rgb(56, 55, 55);
 }
 .pagination-wrapper {
-    position: relative;
+  position: relative;
 }
 .favorite-icon{
     width: fit-content;
@@ -109,25 +118,32 @@
     padding: 40px 0;
 }
 .info-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 .info-label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: rgba(255, 255, 255, 0.45);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.45);
 }
 .info-value {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+}
+.movies {
+    padding-left: 40px;
+    padding-right: 40px;
+    box-sizing: border-box;
 }
 .movie-wrapper {
     position: relative;
     width: 300px;
+    min-width: 0;
+    box-sizing: border-box;
 }
 .movie-wrapper .movie-card {
     width: 100%;
@@ -151,25 +167,32 @@
     .navbar-brand {
         display: none;
     }
+
     .header {
         justify-content: center;
         gap: 20px;
         padding: 15px 30px;
     }
+
     .search-input {
         width: 220px;
     }
+
     .movie-wrapper {
         width: 230px;
     }
+
     .movie-wrapper .movie-card {
         height: 310px;
     }
-    .movie-card h5 {
-        font-size: 16px;
-    }
+
     .movie-detials {
         width: 80% !important;
+    }
+
+    .movies {
+        padding-left: 30px;
+        padding-right: 30px;
     }
 }
 
@@ -180,66 +203,111 @@
         padding: 15px 20px;
         gap: 10px;
     }
+
     .links {
         order: 1;
     }
+
     .search-box {
         order: 2;
     }
+
     .search-input {
         width: 260px;
     }
+
     .movie-wrapper {
         width: 185px;
     }
+
     .movie-wrapper .movie-card {
         height: 260px;
     }
+
     .movie-card h5 {
-        font-size: 13px;
         margin-left: 8px;
     }
+
     .movie-detials {
         width: 90% !important;
     }
+
     .image-overlay {
         padding: 30px 0;
     }
+
+    .movies {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }
 
-@media (max-width: 480px) {
-    .px-5 {
-        padding-left: 10px !important;
-        padding-right: 10px !important;
+/* Consolidated small-phone tier (old 480px + 576px merged so there's
+   no conflicting override between them — this one rule now reliably
+   controls every phone-sized screen and guarantees 2 cards per row) */
+@media (max-width: 576px) {
+    .movie-wrapper {
+        width: calc(50% - 8px);
     }
+
+    .movie-wrapper .movie-card {
+        height: 220px;
+    }
+
+    .movie-card h5 {
+        margin-left: 6px;
+    }
+
     .links a {
         padding: 7px;
         margin: 0 5px;
         font-size: 14px;
     }
+
     .search-input {
         width: 220px;
     }
-    .movie-wrapper {
-        width: 155px;
-    }
-    .movie-wrapper .movie-card {
-        height: 220px;
-    }
-    .movie-card h5 {
-        font-size: 12px;
-        margin-left: 6px;
-    }
-    .movie-card .small {
-        font-size: 9px;
-    }
+
     .movie-detials {
         width: 100% !important;
     }
+
     .image-overlay {
         padding: 20px 0;
     }
+
     .movie-detials h1 {
         font-size: 1.8rem !important;
+    }
+
+    .px-5 {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    .movies {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+}
+
+/* Extra-small phones (narrow Android widths) — still 2 columns,
+   just a touch tighter so nothing feels cramped */
+@media (max-width: 380px) {
+    .movie-wrapper {
+        width: calc(50% - 8px);
+    }
+
+    .movie-wrapper .movie-card {
+        height: 195px;
+    }
+
+    .movie-card h5 {
+        margin-left: 4px;
+    }
+
+    .movies {
+        padding-left: 10px;
+        padding-right: 10px;
     }
 }
