@@ -3,7 +3,7 @@ import { BiColor } from "react-icons/bi";
 import { MdOutlineFavorite } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
-const MovieCard = ({ movie, favoriteMoviesList,setFavoriteMoviesList}) => {
+const MovieCard = ({ movie, favoriteMoviesList,setFavoriteMoviesList,pagination,pageNumber}) => {
 
     const navigate=useNavigate();
 

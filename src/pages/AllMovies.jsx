@@ -1,102 +1,203 @@
-import { useEffect, useState } from "react"
-import axios from "axios"
-import MovieCard from "../components/MovieCard"
+import { useEffect, useState } from "react";
+import axios from "axios";
+import MovieCard from "../components/MovieCard";
 import { GrFormNext } from "react-icons/gr";
 import { GrPrevious } from "react-icons/gr";
 
+const AllMovies = ({
+  searchText,
+  favoriteMoviesList,
+  setFavoriteMoviesList,
+  pagination,
+  pageNumber,
+  setPagination,
+  setPageNumber,
+}) => {
+  const [selection, setSelection] = useState("popular");
+  const [moviesList, setMoviesList] = useState([]);
+  const [searchedMovies, setSearchMoives] = useState([]);
+  const [load, setLoad] = useState(false);
 
-
-const AllMovies = ({searchText,favoriteMoviesList,setFavoriteMoviesList}) => {
-
-  const [selection, setSelection]=useState("popular")
-  const [moviesList, setMoviesList]=useState([])
-  const [pagination, setPagination]=useState(1)
-  const [pageNumber, setPageNumber]=useState(1)
-  const [searchedMovies, setSearchMoives]=useState([])
-  const [load, setLoad]=useState(false)
-
-
-  useEffect(()=>{
-
-    const getMovies=async ()=>{
-      if(selection=="popular")
-      {
-        setLoad(true)
-        const result= await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=165bfd050a291be69f9ccec37b38792d&page=${pagination}`)
-        setMoviesList(result.data.results)
-        setLoad(false)
-      }else if(selection=="topRated")
-      {
-        setLoad(true)
-        const result= await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=165bfd050a291be69f9ccec37b38792d&page=${pagination}`)
-        setMoviesList(result.data.results)
-        setLoad(false)
-      }else if(selection=="upComing")
-      {
-        setLoad(true)
-        const result= await axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=165bfd050a291be69f9ccec37b38792d&page=${pagination}`)
-        setMoviesList(result.data.results)
-        setLoad(false)
+  useEffect(() => {
+    const getMovies = async () => {
+      if (selection == "popular") {
+        setLoad(true);
+        const result = await axios.get(
+          `https://api.themoviedb.org/3/movie/popular?api_key=165bfd050a291be69f9ccec37b38792d&page=${pagination}`,
+        );
+        setMoviesList(result.data.results);
+        setLoad(false);
+      } else if (selection == "topRated") {
+        setLoad(true);
+        const result = await axios.get(
+          `https://api.themoviedb.org/3/movie/top_rated?api_key=165bfd050a291be69f9ccec37b38792d&page=${pagination}`,
+        );
+        setMoviesList(result.data.results);
+        setLoad(false);
+      } else if (selection == "upComing") {
+        setLoad(true);
+        const result = await axios.get(
+          `https://api.themoviedb.org/3/movie/upcoming?api_key=165bfd050a291be69f9ccec37b38792d&page=${pagination}`,
+        );
+        setMoviesList(result.data.results);
+        setLoad(false);
       }
-    }
+    };
 
-    getMovies()
-
-  },[selection,pagination])
-  useEffect( ()=>{
-    const getSearchedMovie=async ()=>{
-
-      try{ 
-        setLoad(true)
-        const resutl= await axios.get(  `https://api.themoviedb.org/3/search/movie?api_key=165bfd050a291be69f9ccec37b38792d&query=${searchText}`)
-        setSearchMoives(resutl.data.results)
-      }catch(err){
-        console.log(err)
-      }finally{
-        setLoad(false)
+    getMovies();
+  }, [selection, pagination]);
+  useEffect(() => {
+    const getSearchedMovie = async () => {
+      try {
+        setLoad(true);
+        const resutl = await axios.get(
+          `https://api.themoviedb.org/3/search/movie?api_key=165bfd050a291be69f9ccec37b38792d&query=${searchText}`,
+        );
+        setSearchMoives(resutl.data.results);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoad(false);
       }
-    }
-    getSearchedMovie()
+    };
+    getSearchedMovie();
+  }, [searchText]);
 
-
-  },[searchText])
-  
-  
   return (
-    <div className="bg-dark" style={{ minHeight: "100vh",position:"relative" }}>
-      {load?<p>Loading...</p>:
-      <div>
-           <div className="buttons d-flex justify-content-center gap-2 py-4">
-        <button className={`btn ${selection ==="popular"?"btn-secondary":"btn-outline-secondary"}`} onClick={()=>setSelection("popular")}>Popular</button>
-        <button className={`btn ${selection ==="topRated"?"btn-secondary":"btn-outline-secondary"}`} onClick={()=>setSelection("topRated")}>Top Rated</button>
-        <button className={`btn ${selection ==="upComing"?"btn-secondary":"btn-outline-secondary"}`}onClick={()=>setSelection("upComing")}>Upcoming</button>
-      </div>
-      
-      <h5 style={{textTransform:"capitalize"}} className="display-5 py-4 px-5 text-white">{selection}:</h5>
-      <div className="movies d-flex flex-wrap gap-3 pb-2 justify-content-center ">
-        {
-          searchText.length ==0? moviesList.map((movie)=><MovieCard key={movie.id} movie={movie} favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} />):
-          searchedMovies.map((movie)=><MovieCard key={movie.id} movie={movie} favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} />)
-        }
-      </div>
-      {moviesList.length> 0  &&(<div className="pagination-wrapper p-4 d-flex justify-content-center ">
-        <nav aria-label="Page navigation ">
-          <ul className="pagination">
-            <li className="page-item"><button className="page-link prev"  onClick={()=>pageNumber>1? setPageNumber(pageNumber>3?prev=>prev-3:null):setPageNumber(1)} ><GrPrevious /></button></li>
-            <li className="page-item"><button className="page-link" onClick={()=>setPagination(pageNumber)} >{pageNumber}</button></li>
-            <li className="page-item"><button className="page-link" onClick={()=>setPagination(pageNumber +1)} >{pageNumber + 1}</button></li>
-            <li className="page-item"><button className="page-link" onClick={()=>setPagination(pageNumber+2)} >{pageNumber + 2}</button></li>
-            <li className="page-item"><button className="page-link next"  onClick={()=>setPageNumber(prev=>prev+3)}  ><GrFormNext /></button></li>
-          </ul>
-        </nav>
-      </div>)
-      }
-     
-      </div>
-    }
-     
-    </div>
-  )
-}
+    <div
+      className="bg-dark"
+      style={{ minHeight: "100vh", position: "relative" }}
+    >
+      {load ? (
+        <p>Loading...</p>
+      ) : (
+        <div>
+          <div className="buttons d-flex justify-content-center gap-2 py-4">
+            <button
+              className={`btn ${selection === "popular" ? "btn-secondary" : "btn-outline-secondary"}`}
+              onClick={() => setSelection("popular")}
+            >
+              Popular
+            </button>
+            <button
+              className={`btn ${selection === "topRated" ? "btn-secondary" : "btn-outline-secondary"}`}
+              onClick={() => setSelection("topRated")}
+            >
+              Top Rated
+            </button>
+            <button
+              className={`btn ${selection === "upComing" ? "btn-secondary" : "btn-outline-secondary"}`}
+              onClick={() => setSelection("upComing")}
+            >
+              Upcoming
+            </button>
+          </div>
 
-export default AllMovies
+          <h5
+            style={{ textTransform: "capitalize" }}
+            className="display-5 py-4 px-5 text-white"
+          >
+            {selection}:
+          </h5>
+          <div className="movies d-flex flex-wrap gap-3 pb-2 justify-content-center ">
+            {searchText.length == 0
+              ? moviesList.map((movie) => (
+                  <MovieCard
+                    key={movie.id}
+                    movie={movie}
+                    favoriteMoviesList={favoriteMoviesList}
+                    setFavoriteMoviesList={setFavoriteMoviesList}
+                    pagination={pagination}
+                    pageNumber={pageNumber}
+                  />
+                ))
+              : searchedMovies.map((movie) => (
+                  <MovieCard
+                    key={movie.id}
+                    movie={movie}
+                    favoriteMoviesList={favoriteMoviesList}
+                    setFavoriteMoviesList={setFavoriteMoviesList}
+                    pagination={pagination}
+                    pageNumber={pageNumber}
+                  />
+                ))}
+          </div>
+          {moviesList.length > 0 && (
+            <div className="pagination-wrapper p-4 d-flex justify-content-center ">
+              <nav aria-label="Page navigation ">
+                <ul className="pagination">
+                  <li className="page-item">
+                    <button
+                      className="page-link prev"
+                      onClick={() =>
+                        pageNumber > 1
+                          ? setPageNumber(
+                              pageNumber > 3 ? (prev) => prev - 3 : null,
+                            )
+                          : setPageNumber(1)
+                      }
+                    >
+                      <GrPrevious />
+                    </button>
+                  </li>
+                  <li className="page-item">
+                    <button
+                      className="page-link"
+                      style={{
+                        background: pagination == pageNumber ? "white" : "",
+                        color: pagination == pageNumber ? "black" : "",
+                      }}
+                      onClick={() => (
+                        setPagination(pageNumber)
+                    
+                      )}
+                    >
+                      {pageNumber}
+                    </button>
+                  </li>
+                  <li className="page-item">
+                    <button
+                      className="page-link"
+                      style={{
+                        background: pagination == pageNumber + 1 ? "white" : "",
+                        color: pagination == pageNumber + 1 ? "black" : "",
+                      }}
+                      onClick={() => (
+                        setPagination(pageNumber + 1)
+                        
+                      )}
+                    >
+                      {pageNumber + 1}
+                    </button>
+                  </li>
+                  <li className="page-item">
+                    <button
+                      className="page-link"
+                      style={{
+                        background: pagination == pageNumber + 2 ? "white" : "",
+                        color: pagination == pageNumber + 2 ? "black" : "",
+                      }}
+                      onClick={() => setPagination(pageNumber + 2)}
+                    >
+                      {pageNumber + 2}
+                    </button>
+                  </li>
+                  <li className="page-item">
+                    <button
+                      className="page-link next"
+                      onClick={() => setPageNumber((prev) => prev + 3)}
+                    >
+                      <GrFormNext />
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default AllMovies;

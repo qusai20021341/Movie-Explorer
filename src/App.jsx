@@ -19,6 +19,8 @@ function App() {
   const [favoriteMoviesList, setFavoriteMoviesList]=useState(() => {
   return JSON.parse(localStorage.getItem("favoritesMovies")) || [];
 });
+ const [pagination, setPagination]=useState( 1)
+  const [pageNumber, setPageNumber]=useState( 1)
   useEffect(()=>{
         localStorage.setItem("favoritesMovies",JSON.stringify(favoriteMoviesList))
         console.log(favoriteMoviesList)
@@ -31,7 +33,7 @@ function App() {
     <Header searchText={searchText} setSearchText={setSearchText} />
     <Routes>
       <Route path="/" element={<Home favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} searchText={searchText} />} />
-      <Route path="/all-movies" element={<AllMovies favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} searchText={searchText} />} />
+      <Route path="/all-movies" element={<AllMovies pagination={pagination} setPagination={setPagination} setPageNumber={setPageNumber} pageNumber={pageNumber} favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} searchText={searchText} />} />
       <Route path="/favorites" element={<Favorites searchText={searchText} favoriteMoviesList={favoriteMoviesList} setFavoriteMoviesList={setFavoriteMoviesList} />} />
       <Route path="/movie/:id" element={<MovieDetails />} />
 
